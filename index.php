@@ -35,6 +35,13 @@
             'vote' => 2,
             'distance_to_center' => 50
         ],
+        [
+            'name' => 'Grand Hotel Splendore',
+            'description' => 'Eleganza e lusso con vista panoramica sul mare.',
+            'parking' => false,
+            'vote' => 4,
+            'distance_to_center' => 3.5
+            //il fatto che fossero dispari e non quindi divisibili in due colonne uguali mi disturbava, ne ho aggiunto uno
 
     ];
 ?>
@@ -50,19 +57,39 @@
 </head>
 <body>
     <div class="container">
-        <ul class="d-flex justify-content-between flex-wrap">
-            <? foreach ($hotels as $hotel): ?>
-            
-                <li class="text-center list-unstyled m-4 border rounded-4 col-5">
-                    <strong><?php echo $hotel['name']; ?></strong><br>
-                    <i><?php echo $hotel['description']; ?></i><br>
-                    Parcheggio <?php echo $hotel['parking'] ? 'disponibile' : 'non disponibile'; ?><br>
-                    <strong>Voto: <?php echo $hotel['vote']; ?></strong><br>
-                    <i>Distanza dal centro: <?php echo $hotel['distance_to_center']; ?> km</i><br>
-                </li>
 
-            <? endforeach; ?>
-        </ul>
+        <h1 class="text-center m-4">PHP-HOTEL</h1>
+
+        <!-- Form per filtrare gli hotel con parcheggio -->
+        <form action="" method="GET" class="mb-4 d-flex flex-column align-items-center text-center">
+            <div class="form-check d-flex justfy-content-center text-center">
+                <input class="form-check-input me-2" type="checkbox" name="parking" id="parkingCheckbox" value="true">
+                <label class="form-check-label" for="parkingCheckbox">Mostra solo hotel con parcheggio</label>
+            </div>
+            <button type="submit" class="btn btn-primary text-center">Filtra</button>
+        </form>
+        <div class="row">
+            <?php 
+            
+            //VERIFICA
+            $showParking = isset($_GET['parking']) == 'true';
+        
+            foreach ($hotels as $hotel): 
+                if (!$showParking || $hotel['parking']): ?>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?php echo $hotel['name']; ?></h5>
+                                <p class="card-text"><?php echo $hotel['description']; ?></p>
+                                <p class="card-text"><U>Parcheggio <?php echo $hotel['parking'] ? 'disponibile' : 'non disponibile'; ?></U></p>
+                                <p class="card-text"><strong>Voto: <?php echo $hotel['vote']; ?></strong></p>
+                                <p class="card-text"><i>Distanza dal centro: <?php echo $hotel['distance_to_center']; ?> km</i></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; 
+            endforeach; ?>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
