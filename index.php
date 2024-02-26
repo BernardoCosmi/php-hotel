@@ -45,22 +45,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div>
-        <ul>
+    <div class="container">
+        <ul class="d-flex justify-content-between flex-wrap">
             <? foreach ($hotels as $hotel): ?>
             
-                <li>
-                    <strong>Nome: </strong><?php echo $hotel['name']; ?><br>
-                    <strong>Descrizione: </strong><?php echo $hotel['description']; ?><br>
-                    <strong>Parcheggio: </strong><?php echo $hotel['parking'] ? 'Disponibile' : 'Non disponibile'; ?><br>
-                    <strong>Voto: </strong><?php echo $hotel['vote']; ?><br>
-                    <strong>Distanza dal centro: </strong><?php echo $hotel['distance_to_center']; ?> km<br>
+                <li class="text-center list-unstyled m-4 border rounded-4 col-5">
+                    <strong><?php echo $hotel['name']; ?></strong><br>
+                    <i><?php echo $hotel['description']; ?></i><br>
+                    Parcheggio <?php echo $hotel['parking'] ? 'disponibile' : 'non disponibile'; ?><br>
+                    <strong>Voto: <?php echo $hotel['vote']; ?></strong><br>
+                    <i>Distanza dal centro: <?php echo $hotel['distance_to_center']; ?> km</i><br>
                 </li>
 
             <? endforeach; ?>
         </ul>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
