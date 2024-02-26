@@ -42,7 +42,7 @@
             'vote' => 4,
             'distance_to_center' => 3.5
             //il fatto che fossero dispari e non quindi divisibili in due colonne uguali mi disturbava, ne ho aggiunto uno
-
+        ]
     ];
 ?>
 
@@ -60,22 +60,43 @@
 
         <h1 class="text-center m-4">PHP-HOTEL</h1>
 
-        <!-- Form per filtrare gli hotel con parcheggio -->
+        <!-- FORM -->
         <form action="" method="GET" class="mb-4 d-flex flex-column align-items-center text-center">
-            <div class="form-check d-flex justfy-content-center text-center">
+            
+            <!-- Parcheggio -->
+            <div class="form-check d-flex justfy-content-center text-center m-2">
                 <input class="form-check-input me-2" type="checkbox" name="parking" id="parkingCheckbox" value="true">
                 <label class="form-check-label" for="parkingCheckbox">Mostra solo hotel con parcheggio</label>
             </div>
+
+            <!-- Voti -->
+            <div class="form-group d-flex justify-content-center m-2">
+                <label for="showVote" class="col-11">Filtro per voto</label>
+                <select class="form-control col-1" name="SelectedVote" id="ratingSelect">
+                    <option value="">Tutti</option>
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?> stelle</option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+
+            <!-- Button -->
             <button type="submit" class="btn btn-primary text-center">Filtra</button>
+        
         </form>
+
+        <!-- STAMPA -->
         <div class="row">
             <?php 
             
-            //VERIFICA
+            //VERIFICA per parcheggio
             $showParking = isset($_GET['parking']) == 'true';
+
+            //VERIFICA per voto
+            $showVote = isset($_GET['SelectedVote']) ? intval($_GET['SelectedVote']) : null;
         
             foreach ($hotels as $hotel): 
-                if (!$showParking || $hotel['parking']): ?>
+                if ((!$showParking || $hotel['parking']) && (!$showVote || $hotel['vote'] >= $showVote)): ?>
                     <div class="col-md-6">
                         <div class="card mb-3">
                             <div class="card-body text-center">
